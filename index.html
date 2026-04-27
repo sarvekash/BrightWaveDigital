@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brightwave Digital — I Make Brands Pop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+  :root{--cream:#faf7f2;--warm-white:#fff9f0;--off-white:#f2ede6;--blush:#f5c9b3;--peach:#ffb085;--coral:#ff7b54;--electric-blue:#3b5bfc;--sky:#a8c5f8;--mint:#b8f0d4;--lemon:#ffe566;--dark:#0f0f0f;--dark-soft:#1a1a2e;--mid:#6b6b7b;--light-border:rgba(0,0,0,0.08);--tag-bg:rgba(59,91,252,0.08);}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;max-width:100%;}
+  html{scroll-behavior:smooth;overflow-x:hidden;max-width:100vw;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;cursor:none;max-width:100vw;}
+  .cursor-dot{width:8px;height:8px;background:var(--electric-blue);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+  .cursor-ring{width:36px;height:36px;border:1.5px solid var(--electric-blue);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.18s cubic-bezier(.25,.46,.45,.94);opacity:0.6;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9997;opacity:0.4;}
+  .page{display:none;}.page.active{display:block;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(20px) saturate(1.8);background:rgba(250,247,242,0.88);border-bottom:1px solid rgba(59,91,252,0.15);transition:all 0.3s;}
+  .nav-logo{text-decoration:none;display:flex;align-items:center;cursor:none;}
+  .nav-logo-img{height:36px;width:auto;display:block;}
+  .logo-mark{width:36px;height:36px;border-radius:10px;background:var(--electric-blue);display:grid;place-items:center;flex-shrink:0;overflow:hidden;}
+  .logo-mark svg{width:36px;height:36px;}
+  .nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+  .nav-links a{text-decoration:none;color:var(--mid);font-size:0.88rem;font-weight:400;transition:color 0.2s;cursor:none;}
+  .nav-links a:hover,.nav-links a.active-link{color:var(--dark);font-weight:500;}
+  .nav-cta{background:var(--dark)!important;color:#fff!important;padding:10px 22px;border-radius:100px;font-weight:500!important;transition:background 0.2s,transform 0.2s!important;}
+  .nav-cta:hover{background:#0f0f0f!important;transform:translateY(-1px);}
+
+  /* BUTTONS */
+  .btn-primary{background:var(--electric-blue);color:#fff;padding:14px 32px;border-radius:100px;font-size:0.95rem;font-weight:500;text-decoration:none;border:none;cursor:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 20px rgba(59,91,252,0.35);display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(59,91,252,0.4);}
+  .btn-ghost{background:transparent;color:var(--dark);padding:14px 32px;border-radius:100px;font-size:0.95rem;font-weight:500;text-decoration:none;border:1.5px solid var(--light-border);cursor:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;}
+  .btn-ghost:hover{border-color:var(--dark);background:var(--dark);color:#fff;}
+
+  /* SECTION */
+  section{padding:100px 48px;}
+  .section-tag{display:inline-flex;align-items:center;gap:6px;background:var(--tag-bg);color:var(--electric-blue);padding:6px 14px;border-radius:100px;font-size:0.78rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:20px;}
+  .section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-0.04em;line-height:1.1;color:var(--dark);max-width:600px;}
+  .section-sub{color:var(--mid);font-size:1rem;line-height:1.75;max-width:520px;margin-top:16px;font-weight:300;}
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+  .reveal-delay-1{transition-delay:0.1s;}.reveal-delay-2{transition-delay:0.2s;}.reveal-delay-3{transition-delay:0.3s;}.reveal-delay-4{transition-delay:0.4s;}
+
+  /* HERO */
+  .hero{min-height:100vh;padding:140px 48px 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;overflow:hidden;}
+  .blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:float 8s ease-in-out infinite;will-change:transform;}
+  .blob-1{width:500px;height:500px;background:rgba(168,197,248,0.35);top:-100px;right:-100px;}
+  .blob-2{width:350px;height:350px;background:rgba(255,176,133,0.3);bottom:50px;left:-80px;animation-delay:-3s;}
+  .blob-3{width:250px;height:250px;background:rgba(184,240,212,0.4);top:40%;right:30%;animation-delay:-5s;}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(20px,-30px) scale(1.05)}66%{transform:translate(-15px,20px) scale(0.97)}}
+  .hero-left{position:relative;z-index:2;}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--light-border);padding:8px 16px;border-radius:100px;font-size:0.8rem;font-weight:500;color:var(--mid);margin-bottom:32px;animation:fadeUp 0.8s ease both;}
+  .badge-dot{width:6px;height:6px;background:#3b5bfc;border-radius:50%;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(1.3)}}
+  h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,5.5vw,5rem);font-weight:800;line-height:1.05;letter-spacing:-0.04em;color:var(--dark);animation:fadeUp 0.8s 0.15s ease both;}
+  h1 .wave-text{color:var(--electric-blue);position:relative;display:inline-block;}
+  h1 .wave-text::after{content:'';position:absolute;left:0;right:0;bottom:-4px;height:4px;border-radius:2px;background:linear-gradient(90deg,#ff7b54,#ffb085,#b8f0d4,#3b5bfc,#6b8aff);animation:lineGrow 1s 0.8s ease both;transform-origin:left;}
+  @keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .hero-sub{margin-top:24px;max-width:460px;font-size:1.05rem;line-height:1.7;color:var(--mid);font-weight:300;animation:fadeUp 0.8s 0.3s ease both;}
+  .hero-btns{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap;animation:fadeUp 0.8s 0.45s ease both;}
+  .hero-stats{display:flex;gap:40px;margin-top:56px;animation:fadeUp 0.8s 0.6s ease both;}
+  .stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;letter-spacing:-0.04em;color:var(--dark);}
+  .stat-label{font-size:0.8rem;color:var(--mid);margin-top:2px;}
+  .hero-right{position:relative;z-index:2;height:500px;animation:fadeUp 0.8s 0.3s ease both;}
+  .float-card{position:absolute;background:#fff;border-radius:20px;padding:20px 24px;border:1px solid var(--light-border);box-shadow:0 8px 40px rgba(0,0,0,0.07);}
+  .fc-main{top:0;left:10%;right:5%;background:linear-gradient(135deg,#0f0f0f 0%,#16213e 100%);color:#fff;padding:32px;}
+  .fc-main-label{font-size:0.75rem;opacity:0.5;letter-spacing:0.1em;text-transform:uppercase;}
+  .fc-main-val{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;letter-spacing:-0.04em;margin:8px 0 4px;background:linear-gradient(135deg,#ffffff,#a8c5f8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .fc-main-sub{font-size:0.8rem;opacity:0.5;}
+  .fc-bar-row{display:flex;gap:6px;margin-top:20px;align-items:flex-end;}
+  .fc-bar{flex:1;border-radius:4px 4px 0 0;background:rgba(255,255,255,0.15);}
+  .fc-bar.active{background:var(--peach);}
+  .fc-engagement{bottom:80px;left:0;width:200px;animation:floatCard 5s ease-in-out infinite;}
+  .fc-pill{font-size:0.7rem;background:var(--tag-bg);color:var(--electric-blue);padding:4px 10px;border-radius:100px;display:inline-block;font-weight:500;}
+  .fc-eng-val{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.03em;margin:8px 0 2px;}
+  .fc-eng-trend{font-size:0.75rem;color:#3b5bfc;font-weight:500;}
+  .fc-users{top:60%;right:0;width:210px;animation:floatCard 6s 1s ease-in-out infinite;}
+  .fc-ava-row{display:flex;margin-bottom:12px;}
+  .ava{width:28px;height:28px;border-radius:50%;border:2px solid #fff;margin-right:-8px;font-size:0.65rem;display:grid;place-items:center;font-weight:700;}
+  .ava-1{background:var(--coral);color:#fff}.ava-2{background:var(--electric-blue);color:#fff}.ava-3{background:var(--mint);color:var(--dark)}.ava-4{background:var(--lemon);color:var(--dark)}
+  .fc-users-label{font-size:0.78rem;font-weight:500;}
+  .fc-users-sub{font-size:0.72rem;color:var(--mid);margin-top:2px;}
+  @keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+  /* MARQUEE */
+  .marquee-section{background:var(--dark);padding:18px 0;overflow:hidden;}
+  .marquee-track{display:flex;gap:60px;white-space:nowrap;animation:marquee 22s linear infinite;}
+  .marquee-track:hover{animation-play-state:paused;}
+  .marquee-item{font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);flex-shrink:0;display:flex;align-items:center;gap:20px;}
+  .marquee-item span{color:#ffb085;font-size:1rem;}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* TRUSTED */
+  .trusted{background:var(--cream);padding:52px 48px;border-bottom:1px solid var(--light-border);}
+  .trusted-label{text-align:center;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:32px;}
+  .logos-row{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
+  .logo-pill{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:-0.02em;color:rgba(0,0,0,0.18);transition:color 0.2s;cursor:default;}
+  .logo-pill:hover{color:var(--electric-blue);}
+
+  /* AWARDS */
+  .awards-bar{background:linear-gradient(135deg,#ff7b54,#ffb085,#b8f0d4,#3b5bfc,#6b8aff);padding:18px 48px;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
+  .award-item{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.92);font-size:0.82rem;font-weight:500;}
+
+  /* SERVICES */
+  .services{background:var(--warm-white);}
+  .services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;flex-wrap:wrap;gap:24px;}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .service-card{background:#fff;border:1px solid var(--light-border);border-radius:24px;padding:36px 32px;transition:transform 0.3s,box-shadow 0.3s;cursor:none;}
+  .service-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.09);}
+  .service-card.featured{background:#0f0f0f;color:#fff;}
+  .svc-icon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:24px;}
+  .service-card:not(.featured) .svc-icon{background:var(--off-white);}
+  .service-card.featured .svc-icon{background:rgba(255,255,255,0.1);}
+  .svc-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:12px;}
+  .service-card.featured .svc-title{color:#fff;}
+  .svc-desc{font-size:0.88rem;line-height:1.7;color:var(--mid);font-weight:300;}
+  .service-card.featured .svc-desc{color:rgba(255,255,255,0.55);}
+  .svc-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+  .svc-tag{font-size:0.72rem;padding:4px 12px;border-radius:100px;background:var(--off-white);color:var(--mid);font-weight:500;}
+  .service-card.featured .svc-tag{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);}
+
+  /* RESULTS */
+  .results{background:var(--dark);padding:80px 48px;}
+  .results-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+  .result-item{text-align:center;padding:48px 24px;border-right:1px solid rgba(255,255,255,0.06);}
+  .result-item:last-child{border-right:none;}
+  .result-num{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:800;letter-spacing:-0.05em;background:linear-gradient(135deg,#ffffff,#a8c5f8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .result-label{color:rgba(255,255,255,0.45);font-size:0.88rem;margin-top:8px;font-weight:300;}
+  .result-sub{color:rgba(255,255,255,0.2);font-size:0.75rem;margin-top:4px;}
+
+  /* PROCESS */
+  .process{background:var(--cream);}
+  .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:60px;}
+  .process-step{position:relative;padding:32px 28px;background:#fff;border-radius:20px;border:1px solid var(--light-border);}
+  .step-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;letter-spacing:-0.06em;color:var(--off-white);line-height:1;margin-bottom:16px;}
+  .step-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;letter-spacing:-0.02em;margin-bottom:10px;}
+  .step-desc{font-size:0.85rem;color:var(--mid);line-height:1.65;font-weight:300;}
+  .process-step:not(:last-child)::after{content:'→';position:absolute;right:-18px;top:38px;font-size:1.2rem;color:var(--electric-blue);font-weight:700;z-index:2;}
+
+  /* TESTIMONIALS */
+  .testimonials{background:var(--warm-white);}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;}
+  .testi-card{background:#fff;border-radius:24px;padding:32px;border:1px solid var(--light-border);transition:transform 0.3s;}
+  .testi-card:hover{transform:translateY(-4px);}
+  .testi-card.highlight{background:#0f0f0f;}
+  .stars{color:var(--lemon);font-size:0.85rem;margin-bottom:16px;letter-spacing:2px;}
+  .testi-quote{font-size:0.92rem;line-height:1.75;color:var(--dark);font-style:italic;font-weight:300;margin-bottom:24px;}
+  .testi-card.highlight .testi-quote{color:rgba(255,255,255,0.85);}
+  .testi-author{display:flex;align-items:center;gap:12px;}
+  .testi-ava{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:0.85rem;flex-shrink:0;}
+  .testi-name{font-weight:600;font-size:0.88rem;}
+  .testi-role{font-size:0.78rem;color:var(--mid);}
+  .testi-card.highlight .testi-name,.testi-card.highlight .testi-role{color:rgba(255,255,255,0.7);}
+
+  /* CASE STRIP */
+  .cases-strip{background:var(--cream);padding:100px 48px;}
+  .cases-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:20px;}
+  .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .case-card{border-radius:24px;overflow:hidden;border:1px solid var(--light-border);background:#fff;transition:transform 0.3s,box-shadow 0.3s;cursor:none;}
+  .case-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,0.1);}
+  .case-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;}
+  .case-thumb-1{background:linear-gradient(135deg,#1a1a2e,#0d3b6e);}
+  .case-thumb-2{background:linear-gradient(135deg,#ff7b54,#ffb085);}
+  .case-thumb-3{background:linear-gradient(135deg,#3b5bfc,#a8f0c6);}
+  .case-body{padding:24px;}
+  .case-cat{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--electric-blue);margin-bottom:8px;}
+  .case-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;letter-spacing:-0.02em;margin-bottom:10px;}
+  .case-desc{font-size:0.83rem;color:var(--mid);line-height:1.6;font-weight:300;margin-bottom:18px;}
+  .case-metrics{display:flex;gap:20px;padding-top:16px;border-top:1px solid var(--light-border);}
+  .case-metric-val{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--dark);letter-spacing:-0.03em;}
+  .case-metric-label{font-size:0.72rem;color:var(--mid);}
+
+  /* FAQ */
+  .faq{background:var(--warm-white);}
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:52px;}
+  .faq-item{background:#fff;border:1px solid var(--light-border);border-radius:16px;overflow:hidden;}
+  .faq-q{padding:22px 24px;font-family:'Syne',sans-serif;font-weight:600;font-size:0.95rem;cursor:none;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background 0.2s;}
+  .faq-q:hover{background:var(--off-white);}
+  .faq-icon{font-size:1.3rem;transition:transform 0.3s;flex-shrink:0;color:var(--electric-blue);}
+  .faq-item.open .faq-icon{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s;font-size:0.88rem;color:var(--mid);line-height:1.7;font-weight:300;padding:0 24px;}
+  .faq-item.open .faq-a{max-height:200px;padding:0 24px 22px;}
+
+  /* CONTACT */
+  .contact-section{background:var(--dark);margin:0 48px 80px;border-radius:32px;padding:80px 80px;display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start;position:relative;overflow:hidden;}
+  .cta-glow{position:absolute;width:400px;height:400px;border-radius:50%;filter:blur(100px);background:rgba(59,91,252,0.25);top:-100px;right:-50px;pointer-events:none;}
+  .cta-glow2{position:absolute;width:300px;height:300px;border-radius:50%;filter:blur(80px);background:rgba(255,123,84,0.2);bottom:-80px;left:100px;pointer-events:none;}
+  .cta-left{position:relative;z-index:1;}
+  .cta-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;letter-spacing:-0.04em;color:#fff;line-height:1.15;}
+  .cta-sub{color:rgba(255,255,255,0.45);font-size:0.92rem;margin-top:14px;font-weight:300;line-height:1.7;}
+  .cta-perks{list-style:none;margin-top:32px;display:flex;flex-direction:column;gap:14px;}
+  .cta-perks li{display:flex;align-items:center;gap:12px;font-size:0.88rem;color:rgba(255,255,255,0.6);}
+  .perk-icon{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.07);display:grid;place-items:center;font-size:0.9rem;flex-shrink:0;}
+  .contact-form{position:relative;z-index:1;}
+  .form-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:24px;padding:40px 36px;backdrop-filter:blur(10px);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+  .form-group label{font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+  .form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:13px 16px;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;outline:none;transition:border-color 0.2s,background 0.2s;cursor:none;}
+  .form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,0.25);}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--electric-blue);background:rgba(59,91,252,0.08);}
+  .form-group select{appearance:none;}
+  .form-group select option{background:#1a1a2e;color:#fff;}
+  .form-group textarea{resize:none;height:110px;}
+  .form-submit{width:100%;padding:15px;border-radius:100px;background:var(--electric-blue);color:#fff;font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;border:none;cursor:none;margin-top:8px;transition:transform 0.2s,box-shadow 0.2s,background 0.2s;box-shadow:0 4px 24px rgba(59,91,252,0.5);letter-spacing:0.02em;}
+  .form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(59,91,252,0.6);background:#2a47e8;}
+  .form-success{display:none;text-align:center;padding:20px 0 8px;}
+  .form-success .success-icon{font-size:2.5rem;margin-bottom:12px;}
+  .form-success h3{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:8px;}
+  .form-success p{font-size:0.88rem;color:rgba(255,255,255,0.5);}
+
+  /* ABOUT */
+  .about-hero{padding:160px 48px 80px;background:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;overflow:hidden;}
+  .about-hero-text h2{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,4.5vw,4rem);font-weight:800;letter-spacing:-0.04em;line-height:1.08;color:var(--dark);}
+  .about-hero-text p{margin-top:20px;font-size:1rem;color:var(--mid);line-height:1.75;max-width:480px;font-weight:300;}
+  .about-img-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .about-img-card{border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:3rem;aspect-ratio:1;}
+  .aic-1{background:linear-gradient(135deg,#3b5bfc,#6b8aff)}.aic-2{background:linear-gradient(135deg,#ff7b54,#ffb085);margin-top:28px}.aic-3{background:linear-gradient(135deg,#3b5bfc,#a8f0c6);margin-top:-28px}.aic-4{background:linear-gradient(135deg,#1a1a2e,#16213e)}
+  .about-founded{position:absolute;bottom:-20px;left:-20px;background:#fff;border-radius:16px;padding:16px 20px;border:1px solid var(--light-border);box-shadow:0 8px 30px rgba(0,0,0,0.08);}
+  .about-founded-val{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--electric-blue);}
+  .about-founded-label{font-size:0.75rem;color:var(--mid);}
+  .about-visual{position:relative;}
+
+  .mission-section{background:var(--warm-white);padding:100px 48px;}
+  .mission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+  .mission-card{background:#fff;border:1px solid var(--light-border);border-radius:24px;padding:36px 30px;text-align:center;}
+  .mission-icon{font-size:2.5rem;margin-bottom:20px;}
+  .mission-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:-0.02em;margin-bottom:12px;}
+  .mission-desc{font-size:0.87rem;color:var(--mid);line-height:1.7;font-weight:300;}
+
+  .team-section{background:var(--cream);padding:100px 48px;}
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px;}
+  .team-card{background:#fff;border:1px solid var(--light-border);border-radius:24px;overflow:hidden;transition:transform 0.3s;}
+  .team-card:hover{transform:translateY(-6px);}
+  .team-avatar{height:200px;display:flex;align-items:center;justify-content:center;font-size:4rem;}
+  .ta-1{background:linear-gradient(135deg,#f5c9b3,#ffb085)}.ta-2{background:linear-gradient(135deg,#a8c5f8,rgba(59,91,252,0.13))}.ta-3{background:linear-gradient(135deg,#b8f0d4,rgba(59,91,252,0.13))}.ta-4{background:linear-gradient(135deg,#ffb085,rgba(255,176,133,0.3))}
+  .team-info{padding:20px 22px;}
+  .team-name{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;letter-spacing:-0.02em;}
+  .team-role{font-size:0.78rem;color:var(--electric-blue);font-weight:500;margin:4px 0 10px;}
+  .team-bio{font-size:0.8rem;color:var(--mid);line-height:1.6;font-weight:300;}
+  .team-socials{display:flex;gap:8px;margin-top:14px;}
+  .ts-link{width:28px;height:28px;background:var(--off-white);border-radius:8px;display:grid;place-items:center;font-size:0.72rem;text-decoration:none;color:var(--mid);transition:all 0.2s;cursor:none;}
+  .ts-link:hover{background:var(--electric-blue);color:#fff;}
+
+  .values-section{background:var(--dark);padding:100px 48px;}
+  .values-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:56px;border:1px solid rgba(255,255,255,0.06);border-radius:20px;overflow:hidden;}
+  .value-item{padding:40px 36px;border-right:1px solid rgba(255,255,255,0.06);}
+  .value-item:nth-child(3),.value-item:nth-child(6){border-right:none;}
+  .value-item:nth-child(4),.value-item:nth-child(5),.value-item:nth-child(6){border-top:1px solid rgba(255,255,255,0.06);}
+  .value-num{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:rgba(255,255,255,0.06);margin-bottom:16px;}
+  .value-title{font-family:'Syne',sans-serif;font-weight:700;color:#fff;margin-bottom:10px;font-size:1rem;}
+  .value-desc{font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.65;font-weight:300;}
+
+  /* CASE STUDIES PAGE */
+  .cs-hero{padding:160px 48px 60px;background:var(--cream);}
+  .cs-hero h2{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:800;letter-spacing:-0.05em;line-height:1.05;max-width:700px;}
+  .cs-hero p{color:var(--mid);font-size:1.05rem;margin-top:20px;max-width:520px;line-height:1.7;font-weight:300;}
+  .cs-filters{display:flex;gap:10px;margin-top:36px;flex-wrap:wrap;}
+  .cs-filter{padding:8px 20px;border-radius:100px;border:1.5px solid var(--light-border);font-size:0.82rem;font-weight:500;cursor:none;background:transparent;color:var(--mid);transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+  .cs-filter.active,.cs-filter:hover{background:var(--dark);color:#fff;border-color:var(--dark);}
+  .cs-list{padding:40px 48px 100px;background:var(--cream);}
+  .cs-big-card{background:#fff;border:1px solid var(--light-border);border-radius:28px;overflow:hidden;display:grid;grid-template-columns:1.1fr 1fr;margin-bottom:24px;transition:box-shadow 0.3s;}
+  .cs-big-card:hover{box-shadow:0 20px 60px rgba(0,0,0,0.09);}
+  .cs-big-card.dark-card{background:var(--dark-soft);}
+  .cs-card-visual{min-height:360px;display:flex;align-items:center;justify-content:center;font-size:5rem;}
+  .csv-1{background:linear-gradient(135deg,#0d3b6e,#1a1a2e)}.csv-2{background:linear-gradient(135deg,#ff7b54,#ff9a76)}.csv-3{background:linear-gradient(135deg,#3b5bfc,#a8f0c6)}.csv-4{background:linear-gradient(135deg,#3b5bfc,#6b8aff)}
+  .cs-card-body{padding:48px 44px;display:flex;flex-direction:column;justify-content:center;}
+  .cs-tag{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--electric-blue);margin-bottom:14px;}
+  .cs-big-card.dark-card .cs-tag{color:var(--peach);}
+  .cs-card-title{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;letter-spacing:-0.03em;line-height:1.2;margin-bottom:16px;}
+  .cs-big-card.dark-card .cs-card-title{color:#fff;}
+  .cs-card-desc{font-size:0.9rem;color:var(--mid);line-height:1.7;font-weight:300;margin-bottom:28px;}
+  .cs-big-card.dark-card .cs-card-desc{color:rgba(255,255,255,0.45);}
+  .cs-stats-row{display:flex;gap:28px;padding-top:24px;border-top:1px solid var(--light-border);}
+  .cs-big-card.dark-card .cs-stats-row{border-color:rgba(255,255,255,0.08);}
+  .cs-stat-val{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--dark);letter-spacing:-0.04em;}
+  .cs-big-card.dark-card .cs-stat-val{color:#fff;}
+  .cs-stat-label{font-size:0.75rem;color:var(--mid);margin-top:2px;}
+  .cs-big-card.dark-card .cs-stat-label{color:rgba(255,255,255,0.35);}
+
+  /* BLOG PAGE */
+  .blog-hero{padding:160px 48px 60px;background:var(--cream);}
+  .blog-hero h2{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,4.5vw,4rem);font-weight:800;letter-spacing:-0.05em;}
+  .blog-hero p{color:var(--mid);margin-top:16px;max-width:500px;line-height:1.7;font-weight:300;}
+  .blog-grid-section{padding:40px 48px 100px;background:var(--cream);}
+  .blog-featured{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;margin-bottom:24px;}
+  .blog-card{background:#fff;border:1px solid var(--light-border);border-radius:24px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;cursor:none;}
+  .blog-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(0,0,0,0.09);}
+  .blog-thumb{height:220px;display:flex;align-items:center;justify-content:center;font-size:3rem;}
+  .bt-1{background:linear-gradient(135deg,rgba(59,91,252,0.13),#a8c5f8)}.bt-2{background:linear-gradient(135deg,rgba(255,176,133,0.3),rgba(255,123,84,0.2))}.bt-3{background:linear-gradient(135deg,rgba(59,91,252,0.13),#b8f0d4)}.bt-4{background:linear-gradient(135deg,#1a1a2e,rgba(59,91,252,0.2))}.bt-5{background:linear-gradient(135deg,rgba(255,176,133,0.3),rgba(255,176,133,0.3))}.bt-6{background:linear-gradient(135deg,rgba(245,201,179,0.4),rgba(255,123,84,0.2))}
+  .blog-card.big .blog-thumb{height:280px;}
+  .blog-body{padding:24px 26px;}
+  .blog-meta{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+  .blog-cat{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;background:var(--tag-bg);color:var(--electric-blue);padding:3px 10px;border-radius:100px;}
+  .blog-date{font-size:0.75rem;color:var(--mid);}
+  .blog-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:-0.02em;line-height:1.35;margin-bottom:10px;}
+  .blog-card.big .blog-title{font-size:1.3rem;}
+  .blog-excerpt{font-size:0.83rem;color:var(--mid);line-height:1.65;font-weight:300;}
+  .blog-author{display:flex;align-items:center;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--light-border);}
+  .blog-ava{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:0.7rem;font-weight:700;}
+  .blog-author-name{font-size:0.78rem;font-weight:500;}
+  .blog-read{font-size:0.72rem;color:var(--mid);}
+  .blog-small-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+
+  /* FOOTER */
+  footer{background:var(--dark);border-top:1px solid rgba(255,255,255,0.05);padding:60px 48px 40px;}
+  .footer-top{display:flex;justify-content:space-between;gap:60px;flex-wrap:wrap;margin-bottom:56px;}
+  .footer-brand{max-width:280px;}
+  .footer-logo{display:flex;align-items:center;margin-bottom:16px;}
+  .footer-logo-img{height:44px;width:auto;display:block;}
+  .footer-tagline{font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.65;font-weight:300;}
+  .footer-col h4{font-family:'Syne',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:20px;}
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+  .footer-col li a{text-decoration:none;color:rgba(255,255,255,0.6);font-size:0.88rem;transition:color 0.2s;cursor:none;}
+  .footer-col li a:hover{color:#fff;}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  .footer-copy{font-size:0.82rem;color:rgba(255,255,255,0.3);}
+  .footer-socials{display:flex;gap:12px;}
+  .social-link{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.06);display:grid;place-items:center;text-decoration:none;color:rgba(255,255,255,0.5);font-size:0.85rem;transition:all 0.2s;cursor:none;}
+  .social-link:hover{background:var(--electric-blue);color:#fff;}
+
+  /* RESPONSIVE */
+  @media(hover:none),(pointer:coarse){
+    body{cursor:auto}
+    .cursor-dot,.cursor-ring{display:none}
+    a,button,.service-card,.team-card,.blog-card,.case-card,.faq-q,.nav-logo,.ts-link,.social-link,.cs-filter,.logo-pill{cursor:pointer}
+  }
+  .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px;background:none;border:none;z-index:600;}
+  .nav-hamburger span{display:block;width:22px;height:2px;background:var(--dark);border-radius:2px;transition:all 0.3s;}
+  .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-hamburger.open span:nth-child(2){opacity:0;}
+  .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:490;background:rgba(250,247,242,0.98);backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:36px;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+  .mobile-menu.open{display:flex;opacity:1;pointer-events:all;}
+  .mobile-menu a{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;letter-spacing:-0.04em;color:var(--dark);text-decoration:none;transition:color 0.2s;}
+  .mobile-menu a:hover,.mobile-menu a.active-link{color:var(--electric-blue);}
+  .mobile-menu .mobile-cta{background:#ff7b54;color:#fff !important;padding:14px 36px;border-radius:100px;font-size:1rem !important;margin-top:8px;}
+
+  @media(max-width:1024px){
+    .hero{grid-template-columns:1fr;min-height:auto}
+    .hero-right{display:none}
+    .services-grid{grid-template-columns:1fr 1fr}
+    .process-grid{grid-template-columns:1fr 1fr}
+    .process-step:not(:last-child)::after{display:none}
+    .testi-grid{grid-template-columns:1fr}
+    .results-grid{grid-template-columns:1fr 1fr}
+    .team-grid{grid-template-columns:1fr 1fr}
+    .contact-section{grid-template-columns:1fr;gap:40px;margin:0 20px 60px;padding:60px 40px}
+    .about-hero{grid-template-columns:1fr}
+    .about-visual{display:none}
+    .cs-big-card{grid-template-columns:1fr}
+    .cs-card-visual{min-height:220px}
+    .blog-featured{grid-template-columns:1fr}
+    .cases-grid{grid-template-columns:1fr 1fr}
+    .mission-grid{grid-template-columns:1fr 1fr}
+    .values-grid{grid-template-columns:1fr 1fr}
+    .faq-grid{grid-template-columns:1fr}
+    .awards-bar{gap:20px;padding:16px 24px;flex-direction:column;text-align:center}
+  }
+
+  @media(max-width:768px){
+    /* NAV */
+    nav{padding:14px 20px}
+    .nav-links{display:none}
+    .nav-hamburger{display:flex}
+    .nav-logo{font-size:1rem;gap:8px}
+    .nav-logo-img{height:30px;}
+    .logo-mark{width:32px;height:32px;border-radius:8px;}
+    .logo-mark svg{width:32px;height:32px;}
+
+    /* SECTIONS */
+    section{padding:60px 20px}
+    .hero{padding:110px 20px 56px}
+    h1{font-size:clamp(2.2rem,9vw,3.2rem)}
+
+    /* HERO STATS - stack on mobile */
+    .hero-stats{flex-wrap:wrap;gap:24px;margin-top:40px}
+    .stat-item{min-width:calc(50% - 12px)}
+    .stat-num{font-size:1.5rem}
+
+    /* HERO BTNS */
+    .hero-btns{flex-direction:column;gap:12px}
+    .btn-primary,.btn-ghost{width:100%;justify-content:center;padding:14px 24px}
+
+    /* SERVICES */
+    .services-grid{grid-template-columns:1fr}
+    .services-header{flex-direction:column;gap:16px;margin-bottom:40px}
+
+    /* PROCESS */
+    .process-grid{grid-template-columns:1fr;gap:16px;margin-top:40px}
+
+    /* RESULTS */
+    .results-grid{grid-template-columns:1fr 1fr}
+    .result-item{padding:32px 16px}
+    .result-num{font-size:2.2rem}
+
+    /* CASES */
+    .cases-grid{grid-template-columns:1fr}
+    .cases-header{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:32px}
+
+    /* CONTACT */
+    .contact-section{margin:0 12px 48px;padding:40px 24px;border-radius:24px}
+    .form-row{grid-template-columns:1fr}
+    .form-card{padding:28px 20px}
+
+    /* TEAM */
+    .team-grid{grid-template-columns:1fr}
+
+    /* BLOG */
+    .blog-small-grid{grid-template-columns:1fr}
+    .blog-featured{grid-template-columns:1fr;gap:16px}
+
+    /* MISSION */
+    .mission-grid{grid-template-columns:1fr}
+
+    /* VALUES */
+    .values-grid{grid-template-columns:1fr}
+    .value-item{border-right:none !important;border-top:1px solid rgba(255,255,255,0.06) !important}
+    .value-item:first-child{border-top:none !important}
+
+    /* FAQ */
+    .faq-grid{grid-template-columns:1fr}
+
+    /* TRUSTED / AWARDS */
+    .trusted{padding:40px 20px}
+    .logos-row{gap:16px}
+    .logo-pill{font-size:0.9rem}
+    .awards-bar{flex-direction:column;gap:12px;padding:20px;text-align:center}
+    .award-item{font-size:0.8rem}
+
+    /* ABOUT */
+    .about-hero{padding:110px 20px 60px;gap:40px}
+    .cs-hero{padding:110px 20px 48px}
+    .cs-hero h2{font-size:clamp(2rem,8vw,3.5rem)}
+    .cs-list{padding:32px 20px 80px}
+    .blog-hero{padding:110px 20px 48px}
+    .blog-hero h2{font-size:clamp(2rem,8vw,3.5rem)}
+    .blog-grid-section{padding:32px 20px 80px}
+    .mission-section{padding:60px 20px}
+    .team-section{padding:60px 20px}
+    .values-section{padding:60px 20px}
+
+    /* CS BIG CARDS */
+    .cs-card-body{padding:28px 24px}
+    .cs-card-title{font-size:1.3rem}
+    .cs-stats-row{flex-wrap:wrap;gap:16px}
+
+    /* SECTION TITLES */
+    .section-title{font-size:clamp(1.8rem,7vw,2.8rem)}
+
+    /* FOOTER */
+    footer{padding:48px 20px 32px}
+    .footer-top{flex-direction:column;gap:36px}
+    .footer-bottom{flex-direction:column;align-items:flex-start;gap:16px}
+
+    /* LOCAL AREAS GRID */
+    .local-approach-grid{grid-template-columns:1fr !important}
+
+    /* TEAM SOLO GRID */
+    .team-solo-grid{grid-template-columns:1fr !important}
+  }
+
+  @media(max-width:400px){
+    .hero-stats{flex-direction:column;gap:20px}
+    .stat-item{min-width:100%}
+    nav{padding:12px 16px}
+    .hero{padding:100px 16px 48px}
+    section{padding:52px 16px}
+    .contact-section{margin:0 8px 40px;padding:32px 16px}
+    .cs-list{padding:24px 16px 60px}
+    .blog-grid-section{padding:24px 16px 60px}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo" onclick="return showPage('home')">
+    <img src="data:image/png;base64,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" alt="Brightwave Digital" class="nav-logo-img" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="return showPage('home')" id="nav-home" class="active-link">Home</a></li>
+    <li><a href="#" onclick="return showPage('about')" id="nav-about">About</a></li>
+    <li><a href="#" onclick="return showPage('cases')" id="nav-cases">Our Approach</a></li>
+    <li><a href="#" onclick="return showPage('blog')" id="nav-blog">Blog</a></li>
+    <li><a href="#" onclick="return goContact()" class="nav-cta">Let's Talk →</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <img src="data:image/png;base64,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" alt="Brightwave Digital" style="height:40px;width:auto;margin-bottom:8px;" />
+  <a href="#" onclick="mobileNav('home')" id="mnav-home">Home</a>
+  <a href="#" onclick="mobileNav('about')" id="mnav-about">About</a>
+  <a href="#" onclick="mobileNav('cases')" id="mnav-cases">My Approach</a>
+  <a href="#" onclick="mobileNav('blog')" id="mnav-blog">Blog</a>
+  <a href="#" onclick="mobileNav('contact')" class="mobile-cta">Let's Talk →</a>
+</div>
+
+<!-- ═══════ PAGE: HOME ═══════ -->
+<div class="page active" id="page-home">
+
+<section class="hero">
+  <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
+  <div class="hero-left">
+    <div class="hero-badge"><span class="badge-dot"></span> Now open — taking my first clients</div>
+    <h1>I make<br/><span class="wave-text">brands wave</span><br/>not whisper.</h1>
+    <p class="hero-sub">Brightwave Digital is a solo digital marketing agency based in Downingtown, PA — built for local and small businesses that are serious about growing online. Strategy, content, ads, and creative — sharp execution, directly from me.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary" onclick="return goContact()">Work With Me ↗</a>
+      <a href="#" class="btn-ghost" onclick="return showPage('about')">About Me</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">Solo</div><div class="stat-label">Owner-operated</div></div>
+      <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Done by me, directly</div></div>
+      <div class="stat-item"><div class="stat-num" style="font-size:1.3rem">Downingtown</div><div class="stat-label">Based in PA</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="float-card fc-main">
+      <div class="fc-main-label">What I Offer</div>
+      <div class="fc-main-val" style="font-size:2rem;line-height:1.2">Full-Stack Digital Marketing</div>
+      <div class="fc-main-sub" style="margin-top:8px">Strategy · Content · Ads · Email · SEO · Brand</div>
+      <div class="fc-bar-row" style="margin-top:20px;gap:8px;align-items:stretch;flex-direction:column">
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.07);border-radius:8px;padding:8px 12px">
+          <span style="font-size:0.78rem;opacity:0.7">Social Media</span><span style="font-size:0.72rem;background:var(--peach);color:var(--dark);padding:2px 8px;border-radius:100px;font-weight:600">Available</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.07);border-radius:8px;padding:8px 12px">
+          <span style="font-size:0.78rem;opacity:0.7">Paid Ads</span><span style="font-size:0.72rem;background:var(--mint);color:var(--dark);padding:2px 8px;border-radius:100px;font-weight:600">Available</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.07);border-radius:8px;padding:8px 12px">
+          <span style="font-size:0.78rem;opacity:0.7">Brand Strategy</span><span style="font-size:0.72rem;background:var(--sky);color:var(--dark);padding:2px 8px;border-radius:100px;font-weight:600">Available</span>
+        </div>
+      </div>
+    </div>
+    <div class="float-card fc-engagement"><div class="fc-pill">Response Time</div><div class="fc-eng-val">24 hrs</div><div class="fc-eng-trend">guaranteed reply</div></div>
+    <div class="float-card fc-users">
+      <div class="fc-ava-row"><div class="ava ava-1">📱</div></div>
+      <div class="fc-users-label">Available In Person</div><div class="fc-users-sub">Downingtown, PA area</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">SEO & Content <span>✦</span></div><div class="marquee-item">Paid Social <span>✦</span></div><div class="marquee-item">Brand Identity <span>✦</span></div><div class="marquee-item">Email Marketing <span>✦</span></div><div class="marquee-item">Growth Strategy <span>✦</span></div><div class="marquee-item">Local Marketing <span>✦</span></div><div class="marquee-item">Analytics & CRO <span>✦</span></div><div class="marquee-item">Web Design <span>✦</span></div>
+    <div class="marquee-item">SEO & Content <span>✦</span></div><div class="marquee-item">Paid Social <span>✦</span></div><div class="marquee-item">Brand Identity <span>✦</span></div><div class="marquee-item">Email Marketing <span>✦</span></div><div class="marquee-item">Growth Strategy <span>✦</span></div><div class="marquee-item">Local Marketing <span>✦</span></div><div class="marquee-item">Analytics & CRO <span>✦</span></div><div class="marquee-item">Web Design <span>✦</span></div>
+  </div>
+</div>
+
+<div class="trusted reveal">
+  <div class="trusted-label">What makes me different</div>
+  <div class="logos-row">
+    <div class="logo-pill">Founder-Led</div>
+    <div class="logo-pill">No Fluff</div>
+    <div class="logo-pill">Downingtown-Based</div>
+    <div class="logo-pill">Data-Driven</div>
+    <div class="logo-pill">No Lock-in</div>
+    <div class="logo-pill">Always-On</div>
+  </div>
+</div>
+
+<div class="awards-bar">
+  <div class="award-item"><span>🎯</span> Every project is handled directly by me — the owner</div>
+  <div class="award-item"><span>⚡</span> Strategy delivered within 2 weeks of onboarding</div>
+  <div class="award-item"><span>📍</span> Local to Downingtown, PA — available in person</div>
+</div>
+
+<section class="services" id="services">
+  <div class="services-header">
+    <div><div class="section-tag reveal">⚡ What I Do</div><h2 class="section-title reveal">Services that<br/>actually move needles</h2></div>
+    <p class="section-sub reveal">No fluff, no vague deliverables. Just sharp strategy and executions that show up on your bottom line.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal reveal-delay-1"><div class="svc-icon">📱</div><div class="svc-title">Social Media Marketing</div><div class="svc-desc">Content calendars, community management, and platform-native creative that actually gets saved and shared — not just liked.</div><div class="svc-tags"><span class="svc-tag">Instagram</span><span class="svc-tag">TikTok</span><span class="svc-tag">LinkedIn</span></div></div>
+    <div class="service-card reveal reveal-delay-2"><div class="svc-icon">🎯</div><div class="svc-title">Paid Advertising</div><div class="svc-desc">Meta, Google, and TikTok ads engineered for ROAS. I obsess over creative testing so you don't burn budget on guesses.</div><div class="svc-tags"><span class="svc-tag">Meta Ads</span><span class="svc-tag">Google Ads</span><span class="svc-tag">TikTok Ads</span></div></div>
+    <div class="service-card featured reveal reveal-delay-3"><div class="svc-icon">🚀</div><div class="svc-title">Brand Growth Strategy</div><div class="svc-desc">The big picture. I map the full customer journey, identify your highest-leverage opportunities, and build a roadmap to own your market.</div><div class="svc-tags"><span class="svc-tag">Positioning</span><span class="svc-tag">GTM</span><span class="svc-tag">Analytics</span></div></div>
+    <div class="service-card reveal reveal-delay-1"><div class="svc-icon">✍️</div><div class="svc-title">Content & SEO</div><div class="svc-desc">Blog posts, short-form video scripts, and UGC concepts that rank, resonate, and convert. Quality > quantity, always.</div><div class="svc-tags"><span class="svc-tag">Copywriting</span><span class="svc-tag">SEO</span><span class="svc-tag">Video</span></div></div>
+    <div class="service-card reveal reveal-delay-2"><div class="svc-icon">✉️</div><div class="svc-title">Email & SMS</div><div class="svc-desc">Automated flows, segmented campaigns, and retention sequences that keep your best customers coming back — on autopilot.</div><div class="svc-tags"><span class="svc-tag">Klaviyo</span><span class="svc-tag">Flows</span><span class="svc-tag">A/B Testing</span></div></div>
+    <div class="service-card reveal reveal-delay-3"><div class="svc-icon">🎨</div><div class="svc-title">Brand & Creative</div><div class="svc-desc">Logos, visual identity, ad creative, and landing pages — designed to stop thumbs and make people feel something.</div><div class="svc-tags"><span class="svc-tag">Identity</span><span class="svc-tag">UI/UX</span><span class="svc-tag">Motion</span></div></div>
+  </div>
+</section>
+
+<div class="results">
+  <div class="results-grid">
+    <div class="result-item reveal reveal-delay-1"><div class="result-num">6</div><div class="result-label">Core service areas</div><div class="result-sub">all done by me, directly</div></div>
+    <div class="result-item reveal reveal-delay-2"><div class="result-num">2 wks</div><div class="result-label">From onboarding to live strategy</div><div class="result-sub">no 6-week ramp-up nonsense</div></div>
+    <div class="result-item reveal reveal-delay-3"><div class="result-num">0</div><div class="result-label">Lock-in contracts</div><div class="result-sub">month-to-month, always</div></div>
+    <div class="result-item reveal reveal-delay-4"><div class="result-num">100%</div><div class="result-label">Founder-led execution</div><div class="result-sub">you talk to who does the work</div></div>
+  </div>
+</div>
+
+<section class="process" id="process">
+  <div class="section-tag reveal">🔄 How It Works</div>
+  <h2 class="section-title reveal">From zero to launch<br/>in 4 steps</h2>
+  <p class="section-sub reveal">I've refined my onboarding so you feel results fast — usually within the first 30 days.</p>
+  <div class="process-grid">
+    <div class="process-step reveal reveal-delay-1"><div class="step-num">01</div><div class="step-title">Deep Dive Discovery</div><div class="step-desc">I learn your brand, your audience, and your competitors inside and out. No templates — just real insight.</div></div>
+    <div class="process-step reveal reveal-delay-2"><div class="step-num">02</div><div class="step-title">Strategy Build</div><div class="step-desc">Custom playbook: channels, messaging, content pillars, and a 90-day growth roadmap built around your goals.</div></div>
+    <div class="process-step reveal reveal-delay-3"><div class="step-num">03</div><div class="step-title">Launch & Iterate</div><div class="step-desc">I ship fast, measure everything, and optimize weekly. Speed with clear intention behind every move.</div></div>
+    <div class="process-step reveal reveal-delay-4"><div class="step-num">04</div><div class="step-title">Scale & Report</div><div class="step-desc">Monthly reports you'll actually read. I double down on what's working and cut what's not.</div></div>
+  </div>
+</section>
+
+<section class="cases-strip">
+  <div class="cases-header">
+    <div><div class="section-tag reveal">🧠 My Thinking</div><h2 class="section-title reveal">How I'd approach<br/>your brand</h2></div>
+    <a href="#" class="btn-ghost reveal" onclick="return showPage('about')">More About Me →</a>
+  </div>
+  <div class="cases-grid">
+    <div class="case-card reveal reveal-delay-1"><div class="case-thumb case-thumb-1">📱</div><div class="case-body"><div class="case-cat">Social-First Brand</div><div class="case-title">Starting from zero on social?</div><div class="case-desc">I'd audit your niche, map content pillars to your audience's scroll habits, and build a 90-day calendar before I post a single thing.</div><div class="case-metrics"><div><div class="case-metric-val">Week 1</div><div class="case-metric-label">Deep audit</div></div><div><div class="case-metric-val">Week 2</div><div class="case-metric-label">Strategy ready</div></div><div><div class="case-metric-val">Week 3</div><div class="case-metric-label">Going live</div></div></div></div></div>
+    <div class="case-card reveal reveal-delay-2"><div class="case-thumb case-thumb-2">🎯</div><div class="case-body"><div class="case-cat">Paid Ads</div><div class="case-title">Never run ads before?</div><div class="case-desc">I start lean — small budget, aggressive creative testing — to find what converts before scaling. No guessing, no wasted spend.</div><div class="case-metrics"><div><div class="case-metric-val">$0</div><div class="case-metric-label">Wasted on guesses</div></div><div><div class="case-metric-val">Test</div><div class="case-metric-label">Then scale</div></div><div><div class="case-metric-val">Weekly</div><div class="case-metric-label">Optimization</div></div></div></div></div>
+    <div class="case-card reveal reveal-delay-3"><div class="case-thumb case-thumb-3">🚀</div><div class="case-body"><div class="case-cat">Brand & Growth</div><div class="case-title">Need a full growth engine?</div><div class="case-desc">I map your entire customer journey — awareness to loyalty — and identify the highest-leverage channels to invest in first.</div><div class="case-metrics"><div><div class="case-metric-val">Full</div><div class="case-metric-label">Funnel view</div></div><div><div class="case-metric-val">Clear</div><div class="case-metric-label">Priorities</div></div><div><div class="case-metric-val">30-day</div><div class="case-metric-label">Quick wins</div></div></div></div></div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-tag reveal">🌱 Fresh Start</div>
+  <h2 class="section-title reveal">I'm just getting started —<br/>be part of the story</h2>
+  <p class="section-sub reveal" style="max-width:580px">I don't have a wall of case studies yet — and I'm not going to fake one. What I do have is sharp strategy, genuine hustle, and a simple offer: be one of my first clients and get my best work at a founder's rate.</p>
+  <div class="testi-grid" style="margin-top:48px">
+    <div class="testi-card reveal reveal-delay-1">
+      <div style="font-size:2rem;margin-bottom:16px">🎯</div>
+      <div class="svc-title" style="margin-bottom:10px">Founder's Rate</div>
+      <div class="testi-quote" style="font-style:normal">My first clients get premium service at a discounted rate — in exchange for honest feedback and a case study once results come in. Real partnership from the start.</div>
+    </div>
+    <div class="testi-card highlight reveal reveal-delay-2">
+      <div style="font-size:2rem;margin-bottom:16px">✋</div>
+      <div class="svc-title" style="color:#fff;margin-bottom:10px">You Get Me, Directly</div>
+      <div class="testi-quote">"No junior account managers, no hand-offs. When you work with Brightwave, you work with me — the person who built this, doing the work directly."</div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-top:8px">— Brightwave Digital Founder</div>
+    </div>
+    <div class="testi-card reveal reveal-delay-3">
+      <div style="font-size:2rem;margin-bottom:16px">📍</div>
+      <div class="svc-title" style="margin-bottom:10px">Local & Available</div>
+      <div class="testi-quote" style="font-style:normal">I'm based in Downingtown, PA. I can meet in person, understand the local market, and be reachable in a way that a big remote agency simply can't match.</div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="section-tag reveal">❓ FAQ</div>
+  <h2 class="section-title reveal">Questions I get<br/>asked all the time</h2>
+  <div class="faq-grid">
+    <div class="faq-item reveal reveal-delay-1"><div class="faq-q" onclick="toggleFaq(this)">How quickly can we start? <span class="faq-icon">+</span></div><div class="faq-a">I can typically onboard within 5–7 business days. Once you're in, I kick off with a discovery call and have a strategy ready within 2 weeks.</div></div>
+    <div class="faq-item reveal reveal-delay-2"><div class="faq-q" onclick="toggleFaq(this)">Do you require long-term contracts? <span class="faq-icon">+</span></div><div class="faq-a">Nope. I work month-to-month because I'd rather earn your trust with results than lock you in with paperwork.</div></div>
+    <div class="faq-item reveal reveal-delay-1"><div class="faq-q" onclick="toggleFaq(this)">What industries do you work with? <span class="faq-icon">+</span></div><div class="faq-a">Local businesses, e-commerce, service providers, restaurants, creatives, and small brands. If you have a digital presence to grow, I can help — regardless of industry.</div></div>
+    <div class="faq-item reveal reveal-delay-2"><div class="faq-q" onclick="toggleFaq(this)">How do you report on results? <span class="faq-icon">+</span></div><div class="faq-a">Monthly performance reports in plain English — no vanity metrics, just the numbers that actually matter for your business. Plus I'm reachable by email anytime.</div></div>
+    <div class="faq-item reveal reveal-delay-1"><div class="faq-q" onclick="toggleFaq(this)">What's your minimum ad budget? <span class="faq-icon">+</span></div><div class="faq-a">I recommend a minimum $1K–$2K/month ad spend to run meaningful tests — much lower than big agencies require. My management fee is separate and discussed upfront.</div></div>
+    <div class="faq-item reveal reveal-delay-2"><div class="faq-q" onclick="toggleFaq(this)">Can we meet in person? <span class="faq-icon">+</span></div><div class="faq-a">Absolutely — I'm based in Downingtown, PA and happy to meet in person around Chester County. Grab a coffee, talk strategy, no pressure.</div></div>
+  </div>
+</section>
+
+<div id="contact">
+  <div class="contact-section reveal">
+    <div class="cta-glow"></div><div class="cta-glow2"></div>
+    <div class="cta-left">
+      <div class="section-tag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6);margin-bottom:20px">✉️ Get In Touch</div>
+      <h2 class="cta-title">Ready to ride<br/>the wave? 🌊</h2>
+      <p class="cta-sub">Fill out the form and I'll get back to you within 24 hours. No pitch decks, no pressure — just a real conversation about your brand.</p>
+      <ul class="cta-perks">
+        <li><div class="perk-icon">⚡</div> Response within 24 hours</li>
+        <li><div class="perk-icon">📧</div> thebrightwavedigital&#64;gmail.com</li>
+        <li><div class="perk-icon">🎯</div> Free brand audit on first call</li>
+        <li><div class="perk-icon">🔒</div> Zero commitment, zero pressure</li>
+      </ul>
+    </div>
+    <div class="contact-form">
+      <div class="form-card">
+        <div id="formContent">
+          <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" placeholder="Alex" id="fname"/></div><div class="form-group"><label>Last Name</label><input type="text" placeholder="Johnson" id="lname"/></div></div>
+          <div class="form-group"><label>Email Address</label><input type="email" placeholder="alex@yourbrand.com" id="email"/></div>
+          <div class="form-group"><label>Brand / Company</label><input type="text" placeholder="Your Brand Co." id="company"/></div>
+          <div class="form-group"><label>Service You're Interested In</label><select id="service"><option value="" disabled selected>Select a service...</option><option>Social Media Marketing</option><option>Paid Advertising (Meta / Google)</option><option>Brand Growth Strategy</option><option>Content & SEO</option><option>Email & SMS Marketing</option><option>Brand & Creative</option><option>Full-Service Package</option></select></div>
+          <div class="form-group"><label>Tell Me About Your Brand</label><textarea placeholder="What are you building, what's your goal, and where are you stuck?" id="message"></textarea></div>
+          <button class="form-submit" onclick="submitForm()">Send It → 🚀</button>
+        </div>
+        <div class="form-success" id="formSuccess"><div class="success-icon">🎉</div><h3>You're on my radar!</h3><p>I got your message and will hit you back within 24 hours. Keep an eye on your inbox.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /page-home -->
+
+<!-- ═══════ PAGE: ABOUT ═══════ -->
+<div class="page" id="page-about">
+
+<div class="about-hero">
+  <div class="blob blob-1" style="opacity:0.5"></div>
+  <div class="about-hero-text">
+    <div class="section-tag" style="margin-bottom:20px">👋 Who I Am</div>
+    <h2>One person.<br/>Full commitment.</h2>
+    <p>I'm the founder, strategist, and creative behind Brightwave Digital — a solo digital marketing agency rooted in Downingtown, PA. I started this because I got tired of watching local and small businesses get handed cookie-cutter strategies by big agencies that don't really care. Here, you get me — directly — every time.</p>
+    <div style="display:flex;gap:14px;margin-top:36px;flex-wrap:wrap">
+      <a href="#" class="btn-primary" onclick="return goContact()">Work With Me ↗</a>
+      <a href="#" class="btn-ghost" onclick="return showPage('blog')">Read My Blog</a>
+    </div>
+  </div>
+  <div class="about-visual">
+    <div class="about-img-grid">
+      <div class="about-img-card aic-1">🚀</div><div class="about-img-card aic-2">🎯</div><div class="about-img-card aic-3">📈</div><div class="about-img-card aic-4">✨</div>
+    </div>
+    <div class="about-founded"><div class="about-founded-val">2026</div><div class="about-founded-label">Launched in Downingtown, PA</div></div>
+  </div>
+</div>
+
+<section class="mission-section">
+  <div class="section-tag reveal">🎯 My Mission</div>
+  <h2 class="section-title reveal">Built to help local &<br/>small businesses grow</h2>
+  <div class="mission-grid">
+    <div class="mission-card reveal reveal-delay-1"><div class="mission-icon">🏡</div><div class="mission-title">Local First</div><div class="mission-desc">Rooted in Chester County, I understand the Downingtown and greater PA market. I'm not a faceless agency — I'm your neighbor, and I care about this community growing.</div></div>
+    <div class="mission-card reveal reveal-delay-2"><div class="mission-icon">💡</div><div class="mission-title">My Approach</div><div class="mission-desc">Data-led strategy, human-led creative. I use numbers to find the opportunity, and real storytelling to seize it — no templates, no shortcuts.</div></div>
+    <div class="mission-card reveal reveal-delay-3"><div class="mission-icon">🤝</div><div class="mission-title">My Promise</div><div class="mission-desc">When you reach out, you hear back from me. When work gets done, I do it. Full transparency, no middlemen, no mystery invoices — ever.</div></div>
+  </div>
+</section>
+
+<!-- LOCAL BUSINESS SECTION -->
+<section style="background:var(--cream);padding:100px 48px;">
+  <div class="section-tag reveal">📍 Local & Proud</div>
+  <h2 class="section-title reveal">Serving Downingtown,<br/>Chester County & beyond</h2>
+  <p class="section-sub reveal">I'm a local business owner just like you — which means I actually understand the challenges of building something from scratch in a community. No big-city pricing, no corporate runaround.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px" class="local-approach-grid">
+    <div class="mission-card reveal reveal-delay-1" style="text-align:left">
+      <div class="mission-icon">🏘️</div>
+      <div class="mission-title">Know the Local Market</div>
+      <div class="mission-desc">Chester County has its own culture, audience, and vibe. I build strategies that resonate locally — not generic content copy-pasted from a national playbook.</div>
+    </div>
+    <div class="mission-card reveal reveal-delay-2" style="text-align:left">
+      <div class="mission-icon">☕</div>
+      <div class="mission-title">Meet In Person</div>
+      <div class="mission-desc">Want to grab a coffee in Downingtown and talk strategy? Let's do it. I'm available for in-person meetings — something a remote-only agency can never offer.</div>
+    </div>
+    <div class="mission-card reveal reveal-delay-3" style="text-align:left">
+      <div class="mission-icon">📣</div>
+      <div class="mission-title">Support Local</div>
+      <div class="mission-desc">When you work with me, your money stays in the community. I believe in the local economy and want to be part of what makes Downingtown businesses thrive.</div>
+    </div>
+  </div>
+
+  <!-- Local areas served -->
+  <div style="margin-top:52px;background:#fff;border:1px solid var(--light-border);border-radius:24px;padding:36px 40px" class="reveal">
+    <div style="font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:20px">Areas I Serve</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <span class="svc-tag" style="font-size:0.82rem;padding:6px 16px">📍 Downingtown, PA</span>
+      <span class="svc-tag" style="font-size:0.82rem;padding:6px 16px">📍 Exton, PA</span>
+      <span class="svc-tag" style="font-size:0.82rem;padding:6px 16px">📍 West Chester, PA</span>
+      <span class="svc-tag" style="font-size:0.82rem;padding:6px 16px">📍 Coatesville, PA</span>
+      <span class="svc-tag" style="font-size:0.82rem;padding:6px 16px">📍 Malvern, PA</span>
+      <span class="svc-tag" style="font-size:0.82rem;padding:6px 16px">📍 Phoenixville, PA</span>
+      <span class="svc-tag" style="font-size:0.82rem;padding:6px 16px">📍 Chester County</span>
+      <span class="svc-tag" style="font-size:0.82rem;padding:6px 16px">🌐 Remote — Anywhere</span>
+    </div>
+  </div>
+</section>
+
+<section class="team-section">
+  <div class="section-tag reveal">🙋 Behind the Brand</div>
+  <h2 class="section-title reveal">Hi, I'm the one<br/>doing all of this</h2>
+  <p class="section-sub reveal">Brightwave Digital is a solo operation — strategy, creative, ads, content, and everything in between comes from me directly. No outsourcing, no account managers, no surprises.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:52px;align-items:start" class="team-solo-grid">
+    <!-- Owner card -->
+    <div class="team-card reveal" style="grid-column:1">
+      <div class="team-avatar ta-1" style="height:240px;font-size:5rem">🧑‍💻</div>
+      <div class="team-info" style="padding:28px">
+        <div class="team-name" style="font-size:1.2rem">Brightwave Founder</div>
+        <div class="team-role">Owner, Strategist & Creative Director</div>
+        <div class="team-bio" style="margin-top:12px;font-size:0.85rem;line-height:1.7">Based in Downingtown, PA. Passionate about digital marketing, brand storytelling, and helping local businesses compete online. I handle everything — strategy, content, ads, design — so you always know exactly who's working on your brand.</div>
+        <div class="team-socials" style="margin-top:16px">
+          <a href="/cdn-cgi/l/email-protection#681c000d0a1a010f001c1f091e0d0c010f011c0904280f05090104460b0705" class="ts-link" style="width:auto;padding:0 12px;font-size:0.75rem">📧 Email Me</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- What "solo" means for you -->
+    <div style="display:flex;flex-direction:column;gap:16px" class="reveal reveal-delay-1">
+      <div style="font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);margin-bottom:4px">What working solo means for you</div>
+      <div style="background:#fff;border:1px solid var(--light-border);border-radius:16px;padding:22px 24px;display:flex;gap:14px;align-items:flex-start">
+        <span style="font-size:1.3rem;flex-shrink:0">🎯</span>
+        <div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;margin-bottom:4px">Direct line to the person doing the work</div><div style="font-size:0.82rem;color:var(--mid);line-height:1.6;font-weight:300">No account manager relay race. You talk to me, I do the work, I report back to you. Simple.</div></div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--light-border);border-radius:16px;padding:22px 24px;display:flex;gap:14px;align-items:flex-start">
+        <span style="font-size:1.3rem;flex-shrink:0">💰</span>
+        <div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;margin-bottom:4px">Leaner pricing, bigger attention</div><div style="font-size:0.82rem;color:var(--mid);line-height:1.6;font-weight:300">No big agency overhead means your budget goes further. Every dollar you spend goes toward actual work — not office rent and layers of management.</div></div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--light-border);border-radius:16px;padding:22px 24px;display:flex;gap:14px;align-items:flex-start">
+        <span style="font-size:1.3rem;flex-shrink:0">🤝</span>
+        <div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;margin-bottom:4px">I care, because it's my reputation</div><div style="font-size:0.82rem;color:var(--mid);line-height:1.6;font-weight:300">Your results are my portfolio. I have every incentive to go all-in — because your success is literally how I grow my business.</div></div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--light-border);border-radius:16px;padding:22px 24px;display:flex;gap:14px;align-items:flex-start">
+        <span style="font-size:1.3rem;flex-shrink:0">📍</span>
+        <div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.92rem;margin-bottom:4px">Local knowledge, real availability</div><div style="font-size:0.82rem;color:var(--mid);line-height:1.6;font-weight:300">I'm in Downingtown. We can meet in person, grab coffee, or hop on a call whenever you need — no timezone confusion, no scheduling across continents.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="values-section">
+  <div class="section-tag" style="background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6)">💎 My Values</div>
+  <h2 class="section-title reveal" style="color:#fff;margin-top:20px">How I show up,<br/>every single day</h2>
+  <div class="values-grid">
+    <div class="value-item reveal"><div class="value-num">01</div><div class="value-title">Results over optics</div><div class="value-desc">We don't care about looking busy. We care about moving your numbers.</div></div>
+    <div class="value-item reveal reveal-delay-1"><div class="value-num">02</div><div class="value-title">Radical transparency</div><div class="value-desc">If something isn't working, you'll hear it from us first — with a plan to fix it.</div></div>
+    <div class="value-item reveal reveal-delay-2"><div class="value-num">03</div><div class="value-title">Speed with intention</div><div class="value-desc">We move fast, but nothing ships without a clear strategic reason behind it.</div></div>
+    <div class="value-item reveal reveal-delay-1"><div class="value-num">04</div><div class="value-title">Creative courage</div><div class="value-desc">Safe content doesn't build brands. We push creative boundaries — always backed by data.</div></div>
+    <div class="value-item reveal reveal-delay-2"><div class="value-num">05</div><div class="value-title">Deep ownership</div><div class="value-desc">Your brand is our brand. We're as invested in your growth as you are.</div></div>
+    <div class="value-item reveal reveal-delay-3"><div class="value-num">06</div><div class="value-title">Long-game thinking</div><div class="value-desc">We optimize for lifetime value, not just this month's report.</div></div>
+  </div>
+</section>
+
+</div><!-- /page-about -->
+
+<!-- ═══════ PAGE: CASE STUDIES ═══════ -->
+<div class="page" id="page-cases">
+
+<div class="cs-hero">
+  <div class="section-tag">💼 Case Studies</div>
+  <h2>Results are<br/>coming soon.</h2>
+  <p>I just launched — so this page is still blank. But that's kind of the point. I'm looking for my first clients to build these stories with. Want to be the first case study on this page?</p>
+  <div style="display:flex;gap:14px;margin-top:36px;flex-wrap:wrap">
+    <a href="#" class="btn-primary" onclick="return goContact()">Let's Build Something →</a>
+    <a href="#" class="btn-ghost" onclick="return showPage('about')">Learn About Us</a>
+  </div>
+</div>
+
+<div class="cs-list">
+  <!-- PLACEHOLDER CARD -->
+  <div style="background:#fff;border:2px dashed var(--light-border);border-radius:28px;padding:80px 60px;text-align:center;margin-bottom:24px">
+    <div style="font-size:3rem;margin-bottom:20px">🌊</div>
+    <div style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:12px;color:var(--dark)">Your brand could be here</div>
+    <div style="color:var(--mid);font-size:0.92rem;line-height:1.7;max-width:480px;margin:0 auto 28px;font-weight:300">We're actively looking for our first clients. You'll get founder-level attention, a discounted rate, and the satisfaction of knowing you helped build something from scratch.</div>
+    <a href="#" class="btn-primary" onclick="return goContact()">Claim a Founder Spot →</a>
+  </div>
+
+  <!-- WHAT A CASE STUDY WILL LOOK LIKE -->
+  <div style="background:var(--off-white);border:1px solid var(--light-border);border-radius:28px;padding:48px;margin-bottom:24px">
+    <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:20px">Here's what I'll track for you</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="local-approach-grid">
+      <div style="background:#fff;border-radius:16px;padding:24px;border:1px solid var(--light-border)"><div style="font-size:1.5rem;margin-bottom:10px">📊</div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:6px">Growth Metrics</div><div style="font-size:0.82rem;color:var(--mid);line-height:1.6;font-weight:300">Follower growth, reach, impressions, and engagement rates across every platform we manage.</div></div>
+      <div style="background:#fff;border-radius:16px;padding:24px;border:1px solid var(--light-border)"><div style="font-size:1.5rem;margin-bottom:10px">💰</div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:6px">Revenue Impact</div><div style="font-size:0.82rem;color:var(--mid);line-height:1.6;font-weight:300">ROAS, CPA, revenue attributed to campaigns, and email/SMS contribution to total sales.</div></div>
+      <div style="background:#fff;border-radius:16px;padding:24px;border:1px solid var(--light-border)"><div style="font-size:1.5rem;margin-bottom:10px">🔍</div><div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;margin-bottom:6px">SEO & Visibility</div><div style="font-size:0.82rem;color:var(--mid);line-height:1.6;font-weight:300">Keyword rankings, organic traffic growth, domain authority, and search click-through rates.</div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /page-cases -->
+
+<!-- ═══════ PAGE: BLOG ═══════ -->
+<div class="page" id="page-blog">
+
+<div class="blog-hero">
+  <div class="section-tag">📖 The Brightwave Blog</div>
+  <h2>Insights, tactics &<br/>hot takes on digital marketing</h2>
+  <p>No recycled listicles. Just real strategy from someone who's in the trenches every day.</p>
+</div>
+
+<div class="blog-grid-section">
+  <div class="blog-featured">
+    <div class="blog-card big reveal">
+      <div class="blog-thumb bt-4">📊</div>
+      <div class="blog-body">
+        <div class="blog-meta"><span class="blog-cat">Paid Ads</span><span class="blog-date">March 14, 2026</span></div>
+        <div class="blog-title">Why Your Meta ROAS Dropped in Q1 — And What to Do About It</div>
+        <div class="blog-excerpt">iOS18 attribution changes are hitting harder than expected. Here's what we're seeing across 40+ client accounts, and the creative pivots that are actually working right now.</div>
+        <div class="blog-author"><div class="blog-ava" style="background:var(--electric-blue);color:#fff">BW</div><div><div class="blog-author-name">Brightwave Digital</div><div class="blog-read">8 min read</div></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div class="blog-card reveal reveal-delay-1">
+        <div class="blog-thumb bt-1" style="height:160px">🎯</div>
+        <div class="blog-body"><div class="blog-meta"><span class="blog-cat">Strategy</span><span class="blog-date">March 8, 2026</span></div><div class="blog-title">The Attention Funnel: How to Build a Content Strategy That Actually Converts</div><div class="blog-author"><div class="blog-ava" style="background:var(--electric-blue);color:#fff">BW</div><div><div class="blog-author-name">Brightwave Digital</div><div class="blog-read">6 min read</div></div></div></div>
+      </div>
+      <div class="blog-card reveal reveal-delay-2">
+        <div class="blog-thumb bt-2" style="height:160px">✨</div>
+        <div class="blog-body"><div class="blog-meta"><span class="blog-cat">Brand</span><span class="blog-date">Feb 28, 2026</span></div><div class="blog-title">5 Signs Your Brand Identity Is Silently Killing Your Conversion Rate</div><div class="blog-author"><div class="blog-ava" style="background:var(--electric-blue);color:#fff">BW</div><div><div class="blog-author-name">Brightwave Digital</div><div class="blog-read">5 min read</div></div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="blog-small-grid">
+    <div class="blog-card reveal reveal-delay-1"><div class="blog-thumb bt-3">📧</div><div class="blog-body"><div class="blog-meta"><span class="blog-cat">Email</span><span class="blog-date">Feb 20, 2026</span></div><div class="blog-title">The 7-Email Welcome Flow That's Converting at 34%</div><div class="blog-excerpt">I reverse-engineered the exact welcome sequence that's working for e-commerce brands right now.</div><div class="blog-author"><div class="blog-ava" style="background:var(--electric-blue);color:#fff">BW</div><div><div class="blog-author-name">Brightwave Digital</div><div class="blog-read">7 min read</div></div></div></div></div>
+    <div class="blog-card reveal reveal-delay-2"><div class="blog-thumb bt-5">📱</div><div class="blog-body"><div class="blog-meta"><span class="blog-cat">TikTok</span><span class="blog-date">Feb 12, 2026</span></div><div class="blog-title">TikTok's New Algorithm Update: What Changed and How to Adapt</div><div class="blog-excerpt">The creator reward program shifted distribution signals. Here's my updated playbook.</div><div class="blog-author"><div class="blog-ava" style="background:var(--electric-blue);color:#fff">BW</div><div><div class="blog-author-name">Brightwave Digital</div><div class="blog-read">5 min read</div></div></div></div></div>
+    <div class="blog-card reveal reveal-delay-3"><div class="blog-thumb bt-6">🔍</div><div class="blog-body"><div class="blog-meta"><span class="blog-cat">SEO</span><span class="blog-date">Jan 30, 2026</span></div><div class="blog-title">AI Search Is Here — Here's How I'm Building Content That Wins</div><div class="blog-excerpt">Google's AI Overviews are changing which content gets traffic. My approach for 2026.</div><div class="blog-author"><div class="blog-ava" style="background:var(--electric-blue);color:#fff">BW</div><div><div class="blog-author-name">Brightwave Digital</div><div class="blog-read">9 min read</div></div></div></div></div>
+  </div>
+</div>
+
+</div><!-- /page-blog -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="data:image/png;base64,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" alt="Brightwave Digital" class="footer-logo-img" style="filter:brightness(0) invert(1);" />
+      </div>
+      <p class="footer-tagline">Solo digital marketing agency based in Downingtown, PA. I help local and small businesses cut through the noise and grow online.</p>
+      <div style="margin-top:20px;font-size:0.82rem;color:rgba(255,255,255,0.35)">📍 Downingtown, PA — Serving Chester County & beyond</div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('services').scrollIntoView({behavior:'smooth'}),200);return false;">Social Media</a></li>
+        <li><a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('services').scrollIntoView({behavior:'smooth'}),200);return false;">Paid Ads</a></li>
+        <li><a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('services').scrollIntoView({behavior:'smooth'}),200);return false;">SEO & Content</a></li>
+        <li><a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('services').scrollIntoView({behavior:'smooth'}),200);return false;">Email & SMS</a></li>
+        <li><a href="#" onclick="showPage('home');setTimeout(()=>document.getElementById('services').scrollIntoView({behavior:'smooth'}),200);return false;">Brand & Creative</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#" onclick="return showPage('home')">Home</a></li>
+        <li><a href="#" onclick="return showPage('about')">About Me</a></li>
+        <li><a href="#" onclick="return showPage('cases')">My Approach</a></li>
+        <li><a href="#" onclick="return showPage('blog')">Blog</a></li>
+        <li><a href="#" onclick="return goContact()">Get In Touch</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="/cdn-cgi/l/email-protection#f98d919c9b8b909e918d8e988f9c9d909e908d9895b99e94989095d79a9694">thebrightwavedigital&#64;gmail.com</a></li>
+        <li><a href="#" onclick="return goContact()">Send Me a Message</a></li>
+        <li><a href="#">Downingtown, PA 19335</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Brightwave Digital. All rights reserved. · Solo-owned & operated in Downingtown, PA</div>
+    <div class="footer-socials">
+      <a href="#" class="social-link">𝕏</a>
+      <a href="#" class="social-link">in</a>
+      <a href="#" class="social-link">ig</a>
+      <a href="#" class="social-link">▶</a>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // MOBILE MENU
+  function toggleMenu(){
+    const menu=document.getElementById('mobileMenu');
+    const burger=document.getElementById('hamburger');
+    const isOpen=menu.classList.contains('open');
+    menu.classList.toggle('open');
+    burger.classList.toggle('open');
+    document.body.style.overflow=isOpen?'':'hidden';
+  }
+  function closeMenu(){
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  function mobileNav(page){
+    closeMenu();
+    if(page==='contact'){showPage('home');setTimeout(()=>{const c=document.getElementById('contact');if(c)c.scrollIntoView({behavior:'smooth'});},300);}
+    else{showPage(page);}
+    return false;
+  }
+  // Update mobile nav active state
+  const origShowPage=showPage;
+  showPage=function(name){
+    const r=origShowPage(name);
+    document.querySelectorAll('.mobile-menu a').forEach(a=>a.classList.remove('active-link'));
+    const mel=document.getElementById('mnav-'+name);if(mel)mel.classList.add('active-link');
+    return r;
+  };
+
+  // CURSOR
+  const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function animC(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animC);})();
+  document.addEventListener('mouseover',e=>{const t=e.target.closest('a,button');ring.style.transform=t?'translate(-50%,-50%) scale(1.6)':'translate(-50%,-50%) scale(1)';ring.style.opacity=t?'0.4':'0.6';});
+
+  // PAGE NAV
+  function showPage(name){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page-'+name).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active-link'));
+    const el=document.getElementById('nav-'+name);if(el)el.classList.add('active-link');
+    window.scrollTo({top:0,behavior:'smooth'});
+    setTimeout(initReveal,120);
+    return false;
+  }
+  function goContact(){showPage('home');setTimeout(()=>{const c=document.getElementById('contact');if(c)c.scrollIntoView({behavior:'smooth'});},200);return false;}
+
+  // REVEAL
+  function initReveal(){
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+  }
+  initReveal();
+
+  // NAV SHADOW
+  window.addEventListener('scroll',()=>{document.getElementById('mainNav').style.boxShadow=scrollY>40?'0 2px 30px rgba(0,0,0,0.07)':'none';});
+
+  // FAQ
+  function toggleFaq(el){el.parentElement.classList.toggle('open');}
+
+  // CASE FILTER
+  function filterCases(btn,cat){
+    document.querySelectorAll('.cs-filter').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.cs-big-card').forEach(c=>{c.style.display=(cat==='all'||c.dataset.cat===cat)?'grid':'none';});
+  }
+
+  // FORM
+  function submitForm(){
+    const fields=['fname','lname','email','company','service'];
+    if(!fields.every(id=>document.getElementById(id).value.trim())){
+      fields.forEach(id=>{const el=document.getElementById(id);if(!el.value.trim()){el.style.borderColor='var(--coral)';el.addEventListener('input',()=>el.style.borderColor='',{once:true});}});return;
+    }
+
+    const btn=document.querySelector('.form-submit');
+    btn.textContent='Sending... ✈️';
+    btn.disabled=true;
+    btn.style.opacity='0.7';
+
+    const data={
+      'First Name':   document.getElementById('fname').value.trim(),
+      'Last Name':    document.getElementById('lname').value.trim(),
+      'email':        document.getElementById('email').value.trim(),
+      'Company':      document.getElementById('company').value.trim(),
+      'Service':      document.getElementById('service').value.trim(),
+      'Message':      document.getElementById('message').value.trim(),
+    };
+
+    fetch('https://formspree.io/f/xbdpgnlw',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(data)
+    })
+    .then(res=>{
+      if(res.ok){
+        const fc=document.getElementById('formContent');
+        fc.style.cssText='opacity:0;transform:translateY(10px);transition:all 0.3s ease';
+        setTimeout(()=>{
+          fc.style.display='none';
+          const s=document.getElementById('formSuccess');
+          s.style.display='block';
+          s.style.cssText='opacity:0;transform:translateY(10px);transition:all 0.4s ease';
+          requestAnimationFrame(()=>{s.style.opacity='1';s.style.transform='none';});
+        },300);
+      } else {
+        res.json().then(d=>{
+          btn.textContent='Send It → 🚀';
+          btn.disabled=false;
+          btn.style.opacity='1';
+          alert('Something went wrong: '+(d.error||'Please try again or email me directly.'));
+        });
+      }
+    })
+    .catch(()=>{
+      btn.textContent='Send It → 🚀';
+      btn.disabled=false;
+      btn.style.opacity='1';
+      alert('Could not connect. Please email me directly at thebrightwavedigital@gmail.com');
+    });
+  }
+
+  // FC BARS
+  document.querySelectorAll('.fc-bar').forEach(b=>{
+    b.addEventListener('mouseenter',()=>b.style.background='rgba(255,255,255,0.4)');
+    b.addEventListener('mouseleave',()=>b.style.background=b.classList.contains('active')?'var(--peach)':'rgba(255,255,255,0.15)');
+  });
+</script>
+</body>
+</html>
